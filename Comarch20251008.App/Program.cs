@@ -12,19 +12,23 @@ internal class Program
     /// <param name="args">Parametry startowe aplikacji</param>
     static void Main(string[] args)
     {
-        Console.WriteLine("Witaj!");
-        Console.Write("Jak masz na imię: ");
-        string imie = Console.ReadLine();
-        Console.Write("Jak masz na nazwisko: ");
-        string nazwisko = Console.ReadLine();
-        Console.Write("Ile masz lat: ");
-        string sWiek = Console.ReadLine();
-        int wiek = Convert.ToInt32(sWiek);
-        int rokUrodzenia = DateTime.Now.Year - wiek;
+        Console.Write("Podaj liczbe elementów do wylosowania: ");
+        int.TryParse(Console.ReadLine(), out var itemCount);
 
-        //Console.WriteLine("Urodziłeś się w " + rokUrodzenia + ".");
-        Console.WriteLine($"Urodziłeś się w {rokUrodzenia}.");
+        int[] tab = new int[itemCount];
+        Random rand = new Random();
 
+        for (int i = 0; i < itemCount; i++)
+        {
+            tab[i] = rand.Next(1, 1000);
+        }
+
+        Console.Write("[");
+        foreach (int item in tab)
+        {
+            Console.Write($"{item} ");
+        }
+        Console.Write("]");
     }
-  
+
 }
