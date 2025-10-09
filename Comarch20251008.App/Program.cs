@@ -12,23 +12,53 @@ internal class Program
     /// <param name="args">Parametry startowe aplikacji</param>
     static void Main(string[] args)
     {
-        Console.Write("Podaj liczbe elementów do wylosowania: ");
-        int.TryParse(Console.ReadLine(), out var itemCount);
+        Console.WriteLine("KALKULATOR 1.0");
+        Console.WriteLine("1. Dodawanie");
+        Console.WriteLine("2. Odejmowanie");
+        Console.WriteLine("3. Mnożenie");
+        Console.WriteLine("4. Dzielenie");
+        Console.WriteLine("5. Reszta z dzielenia");
+        Console.Write("Podaj pozycję menu: ");
 
-        int[] tab = new int[itemCount];
-        Random rand = new Random();
-
-        for (int i = 0; i < itemCount; i++)
+        string sWybor = Console.ReadLine();
+        if (int.TryParse(sWybor, out int iWybor))
         {
-            tab[i] = rand.Next(1, 1000);
+            Console.Write("Podaj X: ");
+            int x = int.Parse(Console.ReadLine());            
+            Console.Write("Podaj Y: ");
+            int y = Convert.ToInt32(Console.ReadLine());
+
+            switch (iWybor)
+            {
+                case 1:
+                    Console.WriteLine($"Wynik działania {x} + {y} to {x + y}.");
+                    break;
+                case 2:
+                    Console.WriteLine($"Wynik działania {x} - {y} to {x - y}.");
+                    break;
+                case 3:
+                    Console.WriteLine($"Wynik działania {x} * {y} to {x * y}.");
+                    break;
+                case 4:
+                    Console.WriteLine($"Wynik działania {x} / {y} to {x / (float)y}.");
+                    break;
+                case 5:
+                    Console.WriteLine($"Wynik działania {x} % {y} to {x % y}.");
+                    break;
+                default:
+                    Console.ForegroundColor = ConsoleColor.Red;
+                    Console.WriteLine("Wprowadzono wartość spoza zakresu menu.");
+                    Console.ResetColor();
+                    break;
+            }
+        }
+        else
+        {
+            Console.ForegroundColor = ConsoleColor.Red;
+            Console.WriteLine("Wprowadzono niepoprawną wartość.");
+            Console.ResetColor();
         }
 
-        Console.Write("[");
-        foreach (int item in tab)
-        {
-            Console.Write($"{item} ");
-        }
-        Console.Write("]");
     }
 
 }
