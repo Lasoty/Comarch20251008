@@ -12,69 +12,82 @@ internal class Program
     /// <param name="args">Parametry startowe aplikacji</param>
     static void Main(string[] args)
     {
-        ShowMenu();
-
-        string stringChoise = Console.ReadLine();
-        if (int.TryParse(stringChoise, out int intChoise))
+        do
         {
-            GetXY(out int x, out int y);
-            Calculator calc = new Calculator();
 
-            switch (intChoise)
+            ShowMenu();
+
+            string stringChoise = Console.ReadLine();
+            if (int.TryParse(stringChoise, out int intChoise))
             {
-                case 1:
-                    Console.WriteLine($"Wynik działania {x} + {y} to {calc.Add(x, y)}.");
-                    break;
-                case 2:
-                    Console.WriteLine($"Wynik działania {x} - {y} to {calc.Subtract(x, y)}.");
-                    break;
-                case 3:
-                    Console.WriteLine($"Wynik działania {x} * {y} to {calc.Multiply(x, y)}.");
-                    break;
-                case 4:
-                    try
-                    {
-                        Console.WriteLine($"Wynik działania {x} / {y} to {calc.Dividy(x, y)}.");
-                    }
-                    catch (Exception ex)
-                    {
-                        ShowError(ex.Message);
-                        throw new Exception("Wystąpił błąd", ex);
-                    }
-                    break;
-                case 5:
-                    try
-                    {
-                        Console.WriteLine($"Wynik działania {x} % {y} to {calc.Modulo(x, y)}.");
-                    }
-                    catch (DivideByZeroException ex)
-                    {
-                        ShowError(ex.Message);
-                    }
-                    catch (Exception ex) 
-                    {
-                        ShowError("Wystąpił nieprzewidziany wyjątek.");
-                    }
-                    break;
-                case 6:
-                    Sortuj(x, y);
-                    Program.Sortuj(x, y);
-                    break;
-                default:
-                    ShowError("Wprowadzono wartość spoza zakresu menu.");
-                    break;
+                GetXY(out int x, out int y);
+                Calculator calc = new Calculator();
+
+                switch (intChoise)
+                {
+                    case 1:
+                        Console.WriteLine($"Wynik działania {x} + {y} to {calc.Add(x, y)}.");
+                        break;
+                    case 2:
+                        Console.WriteLine($"Wynik działania {x} - {y} to {calc.Subtract(x, y)}.");
+                        break;
+                    case 3:
+                        Console.WriteLine($"Wynik działania {x} * {y} to {calc.Multiply(x, y)}.");
+                        break;
+                    case 4:
+                        try
+                        {
+                            Console.WriteLine($"Wynik działania {x} / {y} to {calc.Dividy(x, y)}.");
+                        }
+                        catch (Exception ex)
+                        {
+                            ShowError(ex.Message);
+                            Environment.Exit(100);
+                        }
+                        break;
+                    case 5:
+                        try
+                        {
+                            Console.WriteLine($"Wynik działania {x} % {y} to {calc.Modulo(x, y)}.");
+                        }
+                        catch (DivideByZeroException ex)
+                        {
+                            ShowError(ex.Message);
+                        }
+                        catch (Exception ex)
+                        {
+                            ShowError("Wystąpił nieprzewidziany wyjątek.");
+                        }
+                        break;
+                    case 6:
+                        Sortuj(x, y);
+                        Program.Sortuj(x, y);
+                        break;
+                    default:
+                        ShowError("Wprowadzono wartość spoza zakresu menu.");
+                        break;
+                }
             }
-        }
-        else
-        {
-            ShowError("Wprowadzono niepoprawną wartość.");
-        }
+            else
+            {
+                ShowError("Wprowadzono niepoprawną wartość.");
+            }
+
+        } while (AskToClose());
 
         // YAGNI
         // DRY
         // KISS
         // SOLID
 
+    }
+
+    private static bool AskToClose()
+    {
+        Console.Write("Czy chcesz wykonać kolejną operację [T|n]: ");
+        var userChoise = Console.ReadKey();
+
+        return userChoise.Key != ConsoleKey.N;
     }
 
     private static void ShowError(string msg)
