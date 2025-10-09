@@ -32,10 +32,29 @@ internal class Program
                     Console.WriteLine($"Wynik działania {x} * {y} to {calc.Multiply(x, y)}.");
                     break;
                 case 4:
-                    Console.WriteLine($"Wynik działania {x} / {y} to {calc.Dividy(x, y)}.");
+                    try
+                    {
+                        Console.WriteLine($"Wynik działania {x} / {y} to {calc.Dividy(x, y)}.");
+                    }
+                    catch (Exception ex)
+                    {
+                        ShowError(ex.Message);
+                        throw new Exception("Wystąpił błąd", ex);
+                    }
                     break;
                 case 5:
-                    Console.WriteLine($"Wynik działania {x} % {y} to {calc.Modulo(x, y)}.");
+                    try
+                    {
+                        Console.WriteLine($"Wynik działania {x} % {y} to {calc.Modulo(x, y)}.");
+                    }
+                    catch (DivideByZeroException ex)
+                    {
+                        ShowError(ex.Message);
+                    }
+                    catch (Exception ex) 
+                    {
+                        ShowError("Wystąpił nieprzewidziany wyjątek.");
+                    }
                     break;
                 case 6:
                     Sortuj(x, y);

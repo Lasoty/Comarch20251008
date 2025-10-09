@@ -27,6 +27,9 @@ internal class Calculator
 
     public float Dividy(float x, float y)
     {
+        if (y == 0)
+            throw new ArgumentException("Pamiętaj cholero! Nie dziel przez 0!", nameof(y));
+
         return x / y;
     }
 
