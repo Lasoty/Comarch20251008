@@ -24,8 +24,9 @@ internal class Program
         string sWybor = Console.ReadLine();
         if (int.TryParse(sWybor, out int iWybor))
         {
+            Console.Clear();
             Console.Write("Podaj X: ");
-            int x = int.Parse(Console.ReadLine());            
+            int x = int.Parse(Console.ReadLine());
             Console.Write("Podaj Y: ");
             int y = Convert.ToInt32(Console.ReadLine());
 
@@ -65,10 +66,55 @@ internal class Program
 
     }
 
-    private static void Sortuj(int x, int y)
+    static void Sortuj(int x, int y)
     {
-        // 1. Stwórz tablicę 20 elementową w zakresie od x do y z wartościami losowymi
-        // 2. Stosując algorytm sortowania bąbelkowego posortuj tablicę rosnąco
-        // 3. Wyświetl tablicę.
+        Console.Clear();
+        // 1. Zapytaj użytkownika o ilość elementów
+        Console.Write("Podaj ilość elementów tablicy: ");
+        int n = int.Parse(Console.ReadLine());
+
+        // 2. Stwórz tablicę n-elementową z losowymi wartościami w zakresie x–y
+        int[] tablica = new int[n];
+        Random rnd = new Random();
+
+        //int max = (new int[] { x, y }).Max();
+        //int min = (new int[] { x, y }).Min();
+
+        for (int i = 0; i < n; i++)
+        {
+            tablica[i] = rnd.Next(x, y);
+        }
+
+        Console.WriteLine("Tablica przed sortowaniem:");
+        WyswietlTablice(tablica);
+
+        // 3. Sortowanie bąbelkowe (rosnąco)
+        for (int i = 0; i < n - 1; i++)
+        {
+            for (int j = 0; j < n - 1 - i; j++)
+            {
+                if (tablica[j] > tablica[j + 1])
+                {
+                    // zamiana miejscami
+                    int temp = tablica[j];
+                    tablica[j] = tablica[j + 1];
+                    tablica[j + 1] = temp;
+                }
+            }
+        }
+
+        // 4. Wyświetl posortowaną tablicę
+        Console.WriteLine("\nTablica po sortowaniu:");
+        WyswietlTablice(tablica);
+    }
+
+    static void WyswietlTablice(int[] tab)
+    {
+        Console.Write("[");
+        for (int i = 0; i < tab.Length; i++)
+        {
+            Console.Write(tab[i] + " ");
+        }
+        Console.WriteLine("]");
     }
 }
