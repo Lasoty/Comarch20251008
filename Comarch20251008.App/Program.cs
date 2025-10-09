@@ -18,6 +18,7 @@ internal class Program
         Console.WriteLine("3. Mnożenie");
         Console.WriteLine("4. Dzielenie");
         Console.WriteLine("5. Reszta z dzielenia");
+        Console.WriteLine("6. Sortowanie");
         Console.Write("Podaj pozycję menu: ");
 
         string sWybor = Console.ReadLine();
@@ -45,6 +46,9 @@ internal class Program
                 case 5:
                     Console.WriteLine($"Wynik działania {x} % {y} to {x % y}.");
                     break;
+                case 6:
+                    Sortuj(x, y);
+                    break;
                 default:
                     Console.ForegroundColor = ConsoleColor.Red;
                     Console.WriteLine("Wprowadzono wartość spoza zakresu menu.");
@@ -61,4 +65,10 @@ internal class Program
 
     }
 
+    private static void Sortuj(int x, int y)
+    {
+        // 1. Stwórz tablicę 20 elementową w zakresie od x do y z wartościami losowymi
+        // 2. Stosując algorytm sortowania bąbelkowego posortuj tablicę rosnąco
+        // 3. Wyświetl tablicę.
+    }
 }
