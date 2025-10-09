@@ -12,6 +12,71 @@ internal class Program
     /// <param name="args">Parametry startowe aplikacji</param>
     static void Main(string[] args)
     {
+        ShowMenu();
+
+        string stringChoise = Console.ReadLine();
+        if (int.TryParse(stringChoise, out int intChoise))
+        {
+            GetXY(out int x, out int y);
+            Calculator calc = new Calculator();
+
+            switch (intChoise)
+            {
+                case 1:
+                    Console.WriteLine($"Wynik działania {x} + {y} to {calc.Add(x, y)}.");
+                    break;
+                case 2:
+                    Console.WriteLine($"Wynik działania {x} - {y} to {calc.Subtract(x, y)}.");
+                    break;
+                case 3:
+                    Console.WriteLine($"Wynik działania {x} * {y} to {calc.Multiply(x, y)}.");
+                    break;
+                case 4:
+                    Console.WriteLine($"Wynik działania {x} / {y} to {calc.Dividy(x, y)}.");
+                    break;
+                case 5:
+                    Console.WriteLine($"Wynik działania {x} % {y} to {calc.Modulo(x, y)}.");
+                    break;
+                case 6:
+                    Sortuj(x, y);
+                    Program.Sortuj(x, y);
+                    break;
+                default:
+                    ShowError("Wprowadzono wartość spoza zakresu menu.");
+                    break;
+            }
+        }
+        else
+        {
+            ShowError("Wprowadzono niepoprawną wartość.");
+        }
+
+        // YAGNI
+        // DRY
+        // KISS
+        // SOLID
+
+    }
+
+    private static void ShowError(string msg)
+    {
+        Console.ForegroundColor = ConsoleColor.Red;
+        Console.WriteLine(msg);
+        Console.ResetColor();
+    }
+
+    private static void GetXY(out int x, out int y)
+    {
+        Console.Clear();
+        Console.Write("Podaj X: ");
+        x = int.Parse(Console.ReadLine());
+        Console.Write("Podaj Y: ");
+        y = Convert.ToInt32(Console.ReadLine());
+    }
+
+    private static void ShowMenu()
+    {
+        Console.Clear();
         Console.WriteLine("KALKULATOR 1.0");
         Console.WriteLine("1. Dodawanie");
         Console.WriteLine("2. Odejmowanie");
@@ -20,50 +85,6 @@ internal class Program
         Console.WriteLine("5. Reszta z dzielenia");
         Console.WriteLine("6. Sortowanie");
         Console.Write("Podaj pozycję menu: ");
-
-        string sWybor = Console.ReadLine();
-        if (int.TryParse(sWybor, out int iWybor))
-        {
-            Console.Clear();
-            Console.Write("Podaj X: ");
-            int x = int.Parse(Console.ReadLine());
-            Console.Write("Podaj Y: ");
-            int y = Convert.ToInt32(Console.ReadLine());
-
-            switch (iWybor)
-            {
-                case 1:
-                    Console.WriteLine($"Wynik działania {x} + {y} to {x + y}.");
-                    break;
-                case 2:
-                    Console.WriteLine($"Wynik działania {x} - {y} to {x - y}.");
-                    break;
-                case 3:
-                    Console.WriteLine($"Wynik działania {x} * {y} to {x * y}.");
-                    break;
-                case 4:
-                    Console.WriteLine($"Wynik działania {x} / {y} to {x / (float)y}.");
-                    break;
-                case 5:
-                    Console.WriteLine($"Wynik działania {x} % {y} to {x % y}.");
-                    break;
-                case 6:
-                    Sortuj(x, y);
-                    break;
-                default:
-                    Console.ForegroundColor = ConsoleColor.Red;
-                    Console.WriteLine("Wprowadzono wartość spoza zakresu menu.");
-                    Console.ResetColor();
-                    break;
-            }
-        }
-        else
-        {
-            Console.ForegroundColor = ConsoleColor.Red;
-            Console.WriteLine("Wprowadzono niepoprawną wartość.");
-            Console.ResetColor();
-        }
-
     }
 
     static void Sortuj(int x, int y)
