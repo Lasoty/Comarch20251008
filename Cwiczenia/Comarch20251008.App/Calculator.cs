@@ -74,8 +74,6 @@ internal class Calculator
 
 
 
-
-
 class Car : ICar, IDisposable
 {
     public DateTime BorrowDate { get; set; }
