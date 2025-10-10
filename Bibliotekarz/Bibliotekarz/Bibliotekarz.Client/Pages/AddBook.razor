@@ -1,0 +1,71 @@
+﻿@page "/add-book"
+@page "/add-book/{id:int}"
+@using Bibliotekarz.Common.CommunicationModel
+@using MudBlazor
+@using System.Net.Http.Json
+@inject ISnackbar Snackbar
+
+<MudPaper Class="pa-4 mx-auto" Style="max-width:600px;" Elevation="2">
+    <MudText Typo="Typo.h5" GutterBottom="true">Dodaj nową książkę</MudText>
+
+    <MudForm @ref="form">
+        <MudTextField @bind-Value="Model.Title"
+                      Label="Tytuł"
+                      Required="true"
+                      Immediate="true"
+                      Variant="Variant.Outlined"
+                      HelperText="Wymagane" />
+
+        <MudTextField @bind-Value="Model.Author"
+                      Label="Autor"
+                      Variant="Variant.Outlined"
+                      Placeholder="(opcjonalnie)" />
+
+        <MudNumericField T="int"
+                         @bind-Value="Model.PageCount"
+                         Label="Liczba stron"
+                         Min="1"
+                         Required="true"
+                         Variant="Variant.Outlined" />
+
+        <MudCheckBox T="bool"
+                     ValueChanged="BorrowedChanged"
+                     Label="Wypożyczona?" />
+
+        @if (Model.IsBorrowed)
+        {
+            <MudTextField @bind-Value="Model.BorrowerFirstName"
+                          Label="Imię wypożyczającego"
+                          Variant="Variant.Outlined"
+                          Immediate="true" />
+
+            <MudTextField @bind-Value="Model.BorrowerLastName"
+                          Label="Nazwisko wypożyczającego"
+                          Variant="Variant.Outlined"
+                          Immediate="true" />
+        }
+
+        @if (!string.IsNullOrWhiteSpace(errorMessage))
+        {
+            <MudAlert Severity="Severity.Error" Dense="true" Class="mt-2">
+                @errorMessage
+            </MudAlert>
+        }
+
+        <MudStack Row="true" Spacing="2" Class="mt-4">
+            <MudButton ButtonType="ButtonType.Button"
+                       Variant="Variant.Filled"
+                       OnClick="SubmitAsync"
+                       Color="Color.Primary"
+                       Disabled="@loading">
+                @(loading ? "Zapisywanie..." : "Zapisz")
+            </MudButton>
+            <MudButton Variant="Variant.Outlined"
+                       Color="Color.Secondary"
+                       Disabled="@loading"
+                       OnClick="Reset">
+                Wyczyść
+            </MudButton>
+        </MudStack>
+    </MudForm>
+</MudPaper>

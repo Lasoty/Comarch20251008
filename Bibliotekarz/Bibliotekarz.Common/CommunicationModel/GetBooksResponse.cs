@@ -23,5 +23,5 @@ public class BookDto
     public bool IsBorrowed { get; set; }
 
     public string? BorrowerFirstName { get; set; }
-    public string? BorrowerFirstLastName { get; set; }
+    public string? BorrowerLastName { get; set; }
 }

@@ -1,0 +1,27 @@
+﻿@page "/book-list"
+
+<MudSimpleTable Hover Bordered Striped Style="overflow-x: auto;">
+    <thead>
+        <tr>
+            <th>Tytuł</th>
+            <th>Autor</th>
+            <th>Liczba stron</th>
+            <th>Czy wypożyczona</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in _books)
+        {
+            <tr>
+                <td>@item.Title</td>
+                <td>@item.Author</td>
+                <td>@item.PageCount</td>
+                <td>@(item.IsBorrowed ? "Tak" : "Nie")</td>
+                <td><MudIconButton Icon="@Icons.Material.Filled.Edit" OnClick="@(() => OnEditClick(item.Id))" /></td>
+            </tr>
+        }
+    </tbody>
+</MudSimpleTable>
+
+<MudButton Variant="Variant.Filled" Color="Color.Primary" OnClick="OnDodajClicked" Class="mt-8">Dodaj</MudButton>
