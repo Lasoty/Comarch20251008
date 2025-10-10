@@ -41,8 +41,30 @@ internal class Calculator
 
     private void Test()
     {
+        Car c = null;
+
+        c.Marka = "Fiat";
+
+
         Truck truck = new Truck();
         truck.Zatankuj();
+
+        BorrowCar(truck);
+
+        int[] tab = [0,1,2];
+        int item = (int)tab.GetValue(1);
+    }
+
+    
+    private void BorrowCar(Car car)
+    {
+        car.BorrowDate = DateTime.Now;
+    }
+
+    private void Test2(ICar car)
+    {
+        string marka = car.Marka;
+        car.Zatankuj();
     }
 
     private void Truck_PropertyChanged(object? sender, PropertyChangedEventArgs e)
@@ -54,8 +76,10 @@ internal class Calculator
 
 
 
-class Car 
+class Car : ICar, IDisposable
 {
+    public DateTime BorrowDate { get; set; }
+
     public string Marka { get; set; }
 
     private string model;
@@ -78,9 +102,14 @@ class Car
     {
 
     }
+
+    public void Dispose()
+    {
+        throw new NotImplementedException();
+    }
 }
 
-class Truck : Car
+class Truck : Car, IDisposable
 {
     public Truck()
     {
@@ -90,4 +119,11 @@ class Truck : Car
     public override void Zatankuj()
     {
     }
+}
+
+public interface ICar
+{
+    string Marka { get; }
+
+    void Zatankuj();
 }
