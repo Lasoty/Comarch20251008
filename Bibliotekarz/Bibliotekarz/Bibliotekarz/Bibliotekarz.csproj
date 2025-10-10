@@ -11,6 +11,10 @@
     <ProjectReference Include="..\..\Bibliotekarz.Data\Bibliotekarz.Data.csproj" />
     <ProjectReference Include="..\Bibliotekarz.Client\Bibliotekarz.Client.csproj" />
     <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.Server" Version="9.*" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="9.0.9">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
   </ItemGroup>
 
 </Project>

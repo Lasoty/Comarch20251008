@@ -1,6 +1,8 @@
 using Bibliotekarz.Client.Pages;
 using Bibliotekarz.Components;
+using Bibliotekarz.Data.Context;
 using Microsoft.AspNetCore.Builder;
+using Microsoft.EntityFrameworkCore;
 using MudBlazor.Services;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -11,6 +13,11 @@ builder.Services.AddMudServices();
 // Add services to the container.
 builder.Services.AddRazorComponents()
     .AddInteractiveWebAssemblyComponents();
+
+builder.Services.AddDbContext<AppDbContext>(options 
+    => options.UseSqlServer(
+        builder.Configuration.GetConnectionString("DefaultConnection")
+        ));
 
 var app = builder.Build();
 
