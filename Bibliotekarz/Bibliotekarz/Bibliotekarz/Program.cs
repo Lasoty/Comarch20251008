@@ -19,6 +19,7 @@ builder.Services.AddDbContext<AppDbContext>(options
         builder.Configuration.GetConnectionString("DefaultConnection")
         ));
 
+builder.Services.AddControllers();
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -38,6 +39,7 @@ app.UseHttpsRedirection();
 app.UseAntiforgery();
 
 app.MapStaticAssets();
+app.MapControllers();
 app.MapRazorComponents<App>()
     .AddInteractiveWebAssemblyRenderMode()
     .AddAdditionalAssemblies(typeof(Bibliotekarz.Client._Imports).Assembly);
